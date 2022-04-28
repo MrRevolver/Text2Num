@@ -1,2 +1,2 @@
 # Text2Num
-Простая утилита для конвертации цислительных в цифры в вашем тексте. Это может быть актуально для собственных сервисов распознавания речи.
+A simple utility to convert numerals to numbers in your text. This may be relevant for native speech recognition services.
