@@ -1,3 +1,5 @@
+eval (GetFileContent('numparser.js'));
+
 function Converter () {
 
     var Parent     = new Parser ();
