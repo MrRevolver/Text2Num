@@ -1,3 +1,5 @@
+Tested for python 3.7
+
 # Usage examples
 ```
 from textparser import TextParser
