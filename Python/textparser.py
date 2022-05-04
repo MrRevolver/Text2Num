@@ -5,6 +5,7 @@ import numpy as np
 class TextParser:
     def __init__(self):
         self.parser = Parser()
+        self.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     def convert(self, text_line):
         if not text_line:
@@ -30,10 +31,10 @@ class TextParser:
 
         return converted_text
 
-    @staticmethod
-    def postprocessing(converted_text):
+    #@staticmethod
+    def postprocessing(self, converted_text):
         if "минус" in converted_text and " и " not in converted_text:
-            for x in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+            for x in self.numbers:
                 if x in converted_text:
                     converted_text = converted_text.replace("минус ", "-")
 
@@ -42,17 +43,13 @@ class TextParser:
                 for idx, val in enumerate(converted_text):
                     if val == "т":
                         if converted_text[idx + 4] == "а" \
-                                and converted_text[idx - 2] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
-                                and converted_text[idx + 6] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
+                                and converted_text[idx - 2] in self.numbers \
+                                and converted_text[idx + 6] in self.numbers \
                                 and "0." in converted_text[idx + 6:]:
                             converted_text = converted_text.replace(" точка ", ".").replace("0.", "")
                         if converted_text[idx + 4] == "а" \
-                                and converted_text[idx - 2] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
-                                and converted_text[idx + 6] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
+                                and converted_text[idx - 2] in self.numbers \
+                                and converted_text[idx + 6] in self.numbers \
                                 and "0." not in converted_text[idx + 6:]:
                             converted_text = converted_text.replace(" точка ", ".")
 
@@ -64,17 +61,13 @@ class TextParser:
                 for idx, val in enumerate(converted_text):
                     if val == "з":
                         if converted_text[idx + 6] == "я" \
-                                and converted_text[idx - 2] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
-                                and converted_text[idx + 8] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
+                                and converted_text[idx - 2] in self.numbers \
+                                and converted_text[idx + 8] in self.numbers \
                                 and "0." in converted_text[idx + 8:]:
                             converted_text = converted_text.replace(" запятая ", ".").replace("0.", "")
                         if converted_text[idx + 6] == "я" \
-                                and converted_text[idx - 2] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
-                                and converted_text[idx + 8] in ["0", "1", "2", "3", "4",
-                                                                "5", "6", "7", "8", "9"] \
+                                and converted_text[idx - 2] in self.numbers \
+                                and converted_text[idx + 8] in self.numbers \
                                 and "0." not in converted_text[idx + 8:]:
                             converted_text = converted_text.replace(" запятая ", ".")
 
@@ -85,11 +78,9 @@ class TextParser:
             try:
                 for idx, val in enumerate(converted_text):
                     if val == "и" \
-                            and converted_text[idx + 2] in ["0", "1", "2", "3", "4",
-                                                            "5", "6", "7", "8", "9"] \
+                            and converted_text[idx + 2] in self.numbers \
                             and converted_text[idx - 1] == " " \
-                            and converted_text[idx - 2] in ["0", "1", "2", "3", "4",
-                                                            "5", "6", "7", "8", "9"]:
+                            and converted_text[idx - 2] in self.numbers:
 
                         if " 0." in converted_text:
                             converted_text = converted_text.replace("0.", ".").replace(" и ", "")
@@ -105,18 +96,13 @@ class TextParser:
             except IndexError:
                 return converted_text
 
-            try:
-                converted_text = str(np.round(np.float32(converted_text), 5))
-            except (ValueError, TypeError):
-                pass
-
         return converted_text
 
 
 if __name__ == "__main__":
-    text2num = TextParser()
+    textparser = TextParser()
 
     while True:
         text_line = input("Введите ваш текст:\n")
-        converted_line = text2num.convert(text_line)
+        converted_line = textparser.convert(text_line)
         print(f"\nРаспознанное: {converted_line}\n\n")
