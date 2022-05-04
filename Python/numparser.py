@@ -76,7 +76,7 @@ class Parser:
             # Определение дробного числа:
             if clean_token in ["целых", "целой", "целым", "целая"] and token_idx != 0:
 
-                print (raw_token_list)
+                #print (raw_token_list)
 
                 try:
                     if raw_token_list[token_idx - 1] in self.tokens \
@@ -267,7 +267,7 @@ class Parser:
                         if local_level is None:
                             global_value = global_value + value
                         else:
-                            if value == 0.1:
+                            if value >= 0.1:
                                 global_value = np.round((global_value + local_value * value), 1)
                             elif value == 0.01:
                                 global_value = np.round((global_value + local_value * value), 2)
@@ -369,9 +369,9 @@ class Parser:
         return converted_text
 
 if __name__ == "__main__":
-    text2num = Parser()
+    parser = Parser()
 
     while True:
         text_line = input("Введите ваш текст:\n")
-        converted_line = text2num.convert(text_line)
+        converted_line = parser.convert(text_line)
         print(f"\nРаспознанное: {converted_line}\n\n")
