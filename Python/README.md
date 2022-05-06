@@ -3,7 +3,7 @@ Tested for python 3.7
 # Test
 Launch with Shell and type numberal words
 ```
-python3 text2num.py
+python3 textparser.py
 ```
 
 # Usage examples
